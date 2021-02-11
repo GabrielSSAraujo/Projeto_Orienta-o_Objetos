@@ -1,7 +1,7 @@
 import java.util.Scanner; //leitura de dados
 
-class MetodoAddTemp{
-    public void AddTemperature(double[] data, int qteDias){ 
+class MetodoManipulaTemp{
+    public void addTemperature(double[] data, int qteDias){ 
         int dia;
         Scanner ler = new Scanner(System.in);
 
@@ -11,7 +11,55 @@ class MetodoAddTemp{
             data[i-1] = dia;
         }
     }
+
+    public double calcMediaTemp(double[] dadoMes, int qteDias){
+        double media= 0;
+        for( int i = 1; i <= qteDias; i++){
+            media += dadoMes[i-1];
+        }
+        return media/qteDias;
+    }
+
+    public double[] calcMinTemp(double[] dadoMes, int qteDias){
+    
+        double minTemp;
+        int indice = 0;
+
+        minTemp = dadoMes[0];
+        
+
+        //Salvando menor valor
+        for( int i = 1; i < qteDias; i++){
+            if(minTemp > dadoMes[i]){
+                minTemp= dadoMes[i];
+            }
+        }
+        //Encontrando quantas vezes o menor valor se repete
+        for(int i = 0; i < qteDias; i++){
+            if(minTemp==dadoMes[i]){
+                indice += 1;
+            }
+        }
+        double[] ans = new double[indice+2];
+        int j=0;
+
+        for(int i=0;i<qteDias;i++){
+            if(minTemp==dadoMes[i]){
+                ans[j+2] = i;
+                j++;
+            }
+        }
+
+        ans[0] = minTemp;
+        ans[1] = indice;
+        //criando um array do tamanho do menor valor
+        
+
+
+        return ans;
+    }
 }
+
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -133,7 +181,7 @@ public class App {
         double[] nov2019 = new double[30];
         double[] dez2019 = new double[31];
 
-        double[] jan2020 = new double[31];
+        double[] jan2020 = {22,23,22,21,18,25,26,20,26,30,22,22,18,22,21,20,25,26,20,26,30,22,23,22,21,18,25,26,20,26,30};
         double[] fev2020 = new double[29];
         double[] mar2020 = new double[31];
         double[] abr2020 = new double[30];
@@ -148,447 +196,457 @@ public class App {
      
         int mes;
         int ano;
-        int exit = 1;
+        int menu = 10;
 
         Scanner ler = new Scanner(System.in);
-        while(exit != 0){
+
+        while(menu != 0){
+            System.out.println("Digite: \n 0 - Sair \n 1 - Inserir temperatura \n 2 - Calcular média \n 3 - Calcular temperatura minima \n 4 - Calcular temperatura maxima \n 5 - Obter Relatório");
+            menu = ler.nextInt();
+
             System.out.print("Digite o mes:\n");
             mes = ler.nextInt();
 
             System.out.print("Digite o ano:\n");
             ano = ler.nextInt();
 
-            MetodoAddTemp temp = new MetodoAddTemp();
+            MetodoManipulaTemp temp = new MetodoManipulaTemp(); 
+            
 
-            if(mes >= 1 && mes <= 12 && ano < 2021 && ano > 2010){
+                if(mes >= 1 && mes <= 12 && ano < 2021 && ano > 2010){
 
-                if(ano == 2020){
+                    if(ano == 2020){
+                        
+                        switch(mes){
+                            case 1:
+                                if(menu == 1){System.out.println("Dado ja inserido previamente");}
+                                else if(menu == 2){System.out.println(temp.calcMediaTemp(jan2020, 31));}
+                                else if(menu == 3){
+                                    double[] ans = temp.calcMinTemp(jan2020, 31);
+
+                                    for(int i=2; i<ans[1]+2; i++){
+                                        System.out.println("A temperatura minima foi de: "+ans[0]+"C no dia: " + (int)ans[i]+"/"+mes+"/"+ano);
+                                    }
+                                }
+                                break;
+                            case 2:
+                                temp.addTemperature(fev2020, 29);   
+                                break;
+                            case 3:
+                                temp.addTemperature(mar2020, 31);   
+                                break;
+                            case 4:
+                                temp.addTemperature(abr2020, 30);   
+                                break;
+                            case 5:
+                                temp.addTemperature(mai2020, 31);
+                                break;
+                            case 6:
+                                temp.addTemperature(jun2020, 30);
+                                break;
+                            case 7:
+                                temp.addTemperature(jul2020, 31);
+                                break;
+                            case 8:
+                                temp.addTemperature(ago2020, 31);
+                                break;
+                            case 9:
+                                temp.addTemperature(set2020, 30);
+                                break;
+                            case 10:
+                                temp.addTemperature(out2020, 31);
+                                break;
+                            case 11:
+                                temp.addTemperature(nov2020, 30);
+                                break;
+                            case 12:
+                                temp.addTemperature(dez2020, 31);
+                                break;
+                        }
+                    }
                     
-                    switch(mes){
-                        case 1:
-                            temp.AddTemperature(jan2020, 31);
-                            break;
-                        case 2:
-                            temp.AddTemperature(fev2020, 29);   
-                            break;
-                        case 3:
-                            temp.AddTemperature(mar2020, 31);   
-                            break;
-                        case 4:
-                            temp.AddTemperature(abr2020, 30);   
-                            break;
-                        case 5:
-                            temp.AddTemperature(mai2020, 31);
-                            break;
-                        case 6:
-                            temp.AddTemperature(jun2020, 30);
-                            break;
-                        case 7:
-                            temp.AddTemperature(jul2020, 31);
-                            break;
-                        case 8:
-                            temp.AddTemperature(ago2020, 31);
-                            break;
-                        case 9:
-                            temp.AddTemperature(set2020, 30);
-                            break;
-                        case 10:
-                            temp.AddTemperature(out2020, 31);
-                            break;
-                        case 11:
-                            temp.AddTemperature(nov2020, 30);
-                            break;
-                        case 12:
-                            temp.AddTemperature(dez2020, 31);
-                            break;
+                    if(ano == 2019){
+                        
+                        switch(mes){
+                            case 1:
+                                temp.addTemperature(jan2019, 31);
+                                break;
+                            case 2:
+                                temp.addTemperature(fev2019, 28);   
+                                break;
+                            case 3:
+                                temp.addTemperature(mar2019, 31);   
+                                break;
+                            case 4:
+                                temp.addTemperature(abr2019, 30);   
+                                break;
+                            case 5:
+                                temp.addTemperature(mai2019, 31);
+                                break;
+                            case 6:
+                                temp.addTemperature(jun2019, 30);
+                                break;
+                            case 7:
+                                temp.addTemperature(jul2019, 31);
+                                break;
+                            case 8:
+                                temp.addTemperature(ago2019, 31);
+                                break;
+                            case 9:
+                                temp.addTemperature(set2019, 30);
+                                break;
+                            case 10:
+                                temp.addTemperature(out2019, 31);
+                                break;
+                            case 11:
+                                temp.addTemperature(nov2019, 30);
+                                break;
+                            case 12:
+                                temp.addTemperature(dez2019, 31);
+                                break;
+                        }
                     }
-                }
-                
-                if(ano == 2019){
-                    
-                    switch(mes){
-                        case 1:
-                            temp.AddTemperature(jan2019, 31);
-                            break;
-                        case 2:
-                            temp.AddTemperature(fev2019, 28);   
-                            break;
-                        case 3:
-                            temp.AddTemperature(mar2019, 31);   
-                            break;
-                        case 4:
-                            temp.AddTemperature(abr2019, 30);   
-                            break;
-                        case 5:
-                            temp.AddTemperature(mai2019, 31);
-                            break;
-                        case 6:
-                            temp.AddTemperature(jun2019, 30);
-                            break;
-                        case 7:
-                            temp.AddTemperature(jul2019, 31);
-                            break;
-                        case 8:
-                            temp.AddTemperature(ago2019, 31);
-                            break;
-                        case 9:
-                            temp.AddTemperature(set2019, 30);
-                            break;
-                        case 10:
-                            temp.AddTemperature(out2019, 31);
-                            break;
-                        case 11:
-                            temp.AddTemperature(nov2019, 30);
-                            break;
-                        case 12:
-                            temp.AddTemperature(dez2019, 31);
-                            break;
+
+                    if(ano == 2018){
+                        
+                        switch(mes){
+                            case 1:
+                                temp.addTemperature(jan2018, 31);
+                                break;
+                            case 2:
+                                temp.addTemperature(fev2018, 28);   
+                                break;
+                            case 3:
+                                temp.addTemperature(mar2018, 31);   
+                                break;
+                            case 4:
+                                temp.addTemperature(abr2018, 30);   
+                                break;
+                            case 5:
+                                temp.addTemperature(mai2018, 31);
+                                break;
+                            case 6:
+                                temp.addTemperature(jun2018, 30);
+                                break;
+                            case 7:
+                                temp.addTemperature(jul2018, 31);
+                                break;
+                            case 8:
+                                temp.addTemperature(ago2018, 31);
+                                break;
+                            case 9:
+                                temp.addTemperature(set2018, 30);
+                                break;
+                            case 10:
+                                temp.addTemperature(out2018, 31);
+                                break;
+                            case 11:
+                                temp.addTemperature(nov2018, 30);
+                                break;
+                            case 12:
+                                temp.addTemperature(dez2018, 31);
+                                break;
+                        }
                     }
-                }
 
-                if(ano == 2018){
-                    
-                    switch(mes){
-                        case 1:
-                            temp.AddTemperature(jan2018, 31);
-                            break;
-                        case 2:
-                            temp.AddTemperature(fev2018, 28);   
-                            break;
-                        case 3:
-                            temp.AddTemperature(mar2018, 31);   
-                            break;
-                        case 4:
-                            temp.AddTemperature(abr2018, 30);   
-                            break;
-                        case 5:
-                            temp.AddTemperature(mai2018, 31);
-                            break;
-                        case 6:
-                            temp.AddTemperature(jun2018, 30);
-                            break;
-                        case 7:
-                            temp.AddTemperature(jul2018, 31);
-                            break;
-                        case 8:
-                            temp.AddTemperature(ago2018, 31);
-                            break;
-                        case 9:
-                            temp.AddTemperature(set2018, 30);
-                            break;
-                        case 10:
-                            temp.AddTemperature(out2018, 31);
-                            break;
-                        case 11:
-                            temp.AddTemperature(nov2018, 30);
-                            break;
-                        case 12:
-                            temp.AddTemperature(dez2018, 31);
-                            break;
+                    if(ano == 2017){
+                        
+                        switch(mes){
+                            case 1:
+                                temp.addTemperature(jan2017, 31);
+                                break;
+                            case 2:
+                                temp.addTemperature(fev2017, 28);   
+                                break;
+                            case 3:
+                                temp.addTemperature(mar2017, 31);   
+                                break;
+                            case 4:
+                                temp.addTemperature(abr2017, 30);   
+                                break;
+                            case 5:
+                                temp.addTemperature(mai2017, 31);
+                                break;
+                            case 6:
+                                temp.addTemperature(jun2017, 30);
+                                break;
+                            case 7:
+                                temp.addTemperature(jul2017, 31);
+                                break;
+                            case 8:
+                                temp.addTemperature(ago2017, 31);
+                                break;
+                            case 9:
+                                temp.addTemperature(set2017, 30);
+                                break;
+                            case 10:
+                                temp.addTemperature(out2017, 31);
+                                break;
+                            case 11:
+                                temp.addTemperature(nov2017, 30);
+                                break;
+                            case 12:
+                                temp.addTemperature(dez2017, 31);
+                                break;
+                        }
                     }
-                }
 
-                if(ano == 2017){
-                    
-                    switch(mes){
-                        case 1:
-                            temp.AddTemperature(jan2017, 31);
-                            break;
-                        case 2:
-                            temp.AddTemperature(fev2017, 28);   
-                            break;
-                        case 3:
-                            temp.AddTemperature(mar2017, 31);   
-                            break;
-                        case 4:
-                            temp.AddTemperature(abr2017, 30);   
-                            break;
-                        case 5:
-                            temp.AddTemperature(mai2017, 31);
-                            break;
-                        case 6:
-                            temp.AddTemperature(jun2017, 30);
-                            break;
-                        case 7:
-                            temp.AddTemperature(jul2017, 31);
-                            break;
-                        case 8:
-                            temp.AddTemperature(ago2017, 31);
-                            break;
-                        case 9:
-                            temp.AddTemperature(set2017, 30);
-                            break;
-                        case 10:
-                            temp.AddTemperature(out2017, 31);
-                            break;
-                        case 11:
-                            temp.AddTemperature(nov2017, 30);
-                            break;
-                        case 12:
-                            temp.AddTemperature(dez2017, 31);
-                            break;
+                    if(ano == 2016){
+                        
+                        switch(mes){
+                            case 1:
+                                temp.addTemperature(jan2016, 31);
+                                break;
+                            case 2:
+                                temp.addTemperature(fev2016, 29);   
+                                break;
+                            case 3:
+                                temp.addTemperature(mar2016, 31);   
+                                break;
+                            case 4:
+                                temp.addTemperature(abr2016, 30);   
+                                break;
+                            case 5:
+                                temp.addTemperature(mai2016, 31);
+                                break;
+                            case 6:
+                                temp.addTemperature(jun2016, 30);
+                                break;
+                            case 7:
+                                temp.addTemperature(jul2016, 31);
+                                break;
+                            case 8:
+                                temp.addTemperature(ago2016, 31);
+                                break;
+                            case 9:
+                                temp.addTemperature(set2016, 30);
+                                break;
+                            case 10:
+                                temp.addTemperature(out2016, 31);
+                                break;
+                            case 11:
+                                temp.addTemperature(nov2016, 30);
+                                break;
+                            case 12:
+                                temp.addTemperature(dez2016, 31);
+                                break;
+                        }
                     }
-                }
 
-                if(ano == 2016){
-                    
-                    switch(mes){
-                        case 1:
-                            temp.AddTemperature(jan2016, 31);
-                            break;
-                        case 2:
-                            temp.AddTemperature(fev2016, 29);   
-                            break;
-                        case 3:
-                            temp.AddTemperature(mar2016, 31);   
-                            break;
-                        case 4:
-                            temp.AddTemperature(abr2016, 30);   
-                            break;
-                        case 5:
-                            temp.AddTemperature(mai2016, 31);
-                            break;
-                        case 6:
-                            temp.AddTemperature(jun2016, 30);
-                            break;
-                        case 7:
-                            temp.AddTemperature(jul2016, 31);
-                            break;
-                        case 8:
-                            temp.AddTemperature(ago2016, 31);
-                            break;
-                        case 9:
-                            temp.AddTemperature(set2016, 30);
-                            break;
-                        case 10:
-                            temp.AddTemperature(out2016, 31);
-                            break;
-                        case 11:
-                            temp.AddTemperature(nov2016, 30);
-                            break;
-                        case 12:
-                            temp.AddTemperature(dez2016, 31);
-                            break;
+                    if(ano == 2015){
+                        
+                        switch(mes){
+                            case 1:
+                                temp.addTemperature(jan2015, 31);
+                                break;
+                            case 2:
+                                temp.addTemperature(fev2015, 28);   
+                                break;
+                            case 3:
+                                temp.addTemperature(mar2015, 31);   
+                                break;
+                            case 4:
+                                temp.addTemperature(abr2015, 30);   
+                                break;
+                            case 5:
+                                temp.addTemperature(mai2015, 31);
+                                break;
+                            case 6:
+                                temp.addTemperature(jun2015, 30);
+                                break;
+                            case 7:
+                                temp.addTemperature(jul2015, 31);
+                                break;
+                            case 8:
+                                temp.addTemperature(ago2015, 31);
+                                break;
+                            case 9:
+                                temp.addTemperature(set2015, 30);
+                                break;
+                            case 10:
+                                temp.addTemperature(out2015, 31);
+                                break;
+                            case 11:
+                                temp.addTemperature(nov2015, 30);
+                                break;
+                            case 12:
+                                temp.addTemperature(dez2015, 31);
+                                break;
+                        }
                     }
-                }
 
-                if(ano == 2015){
-                    
-                    switch(mes){
-                        case 1:
-                            temp.AddTemperature(jan2015, 31);
-                            break;
-                        case 2:
-                            temp.AddTemperature(fev2015, 28);   
-                            break;
-                        case 3:
-                            temp.AddTemperature(mar2015, 31);   
-                            break;
-                        case 4:
-                            temp.AddTemperature(abr2015, 30);   
-                            break;
-                        case 5:
-                            temp.AddTemperature(mai2015, 31);
-                            break;
-                        case 6:
-                            temp.AddTemperature(jun2015, 30);
-                            break;
-                        case 7:
-                            temp.AddTemperature(jul2015, 31);
-                            break;
-                        case 8:
-                            temp.AddTemperature(ago2015, 31);
-                            break;
-                        case 9:
-                            temp.AddTemperature(set2015, 30);
-                            break;
-                        case 10:
-                            temp.AddTemperature(out2015, 31);
-                            break;
-                        case 11:
-                            temp.AddTemperature(nov2015, 30);
-                            break;
-                        case 12:
-                            temp.AddTemperature(dez2015, 31);
-                            break;
+                    if(ano == 2014){
+                        
+                        switch(mes){
+                            case 1:
+                                temp.addTemperature(jan2014, 31);
+                                break;
+                            case 2:
+                                temp.addTemperature(fev2014, 28);   
+                                break;
+                            case 3:
+                                temp.addTemperature(mar2014, 31);   
+                                break;
+                            case 4:
+                                temp.addTemperature(abr2014, 30);   
+                                break;
+                            case 5:
+                                temp.addTemperature(mai2014, 31);
+                                break;
+                            case 6:
+                                temp.addTemperature(jun2014, 30);
+                                break;
+                            case 7:
+                                temp.addTemperature(jul2014, 31);
+                                break;
+                            case 8:
+                                temp.addTemperature(ago2014, 31);
+                                break;
+                            case 9:
+                                temp.addTemperature(set2014, 30);
+                                break;
+                            case 10:
+                                temp.addTemperature(out2014, 31);
+                                break;
+                            case 11:
+                                temp.addTemperature(nov2014, 30);
+                                break;
+                            case 12:
+                                temp.addTemperature(dez2014, 31);
+                                break;
+                        }
                     }
-                }
 
-                if(ano == 2014){
-                    
-                    switch(mes){
-                        case 1:
-                            temp.AddTemperature(jan2014, 31);
-                            break;
-                        case 2:
-                            temp.AddTemperature(fev2014, 28);   
-                            break;
-                        case 3:
-                            temp.AddTemperature(mar2014, 31);   
-                            break;
-                        case 4:
-                            temp.AddTemperature(abr2014, 30);   
-                            break;
-                        case 5:
-                            temp.AddTemperature(mai2014, 31);
-                            break;
-                        case 6:
-                            temp.AddTemperature(jun2014, 30);
-                            break;
-                        case 7:
-                            temp.AddTemperature(jul2014, 31);
-                            break;
-                        case 8:
-                            temp.AddTemperature(ago2014, 31);
-                            break;
-                        case 9:
-                            temp.AddTemperature(set2014, 30);
-                            break;
-                        case 10:
-                            temp.AddTemperature(out2014, 31);
-                            break;
-                        case 11:
-                            temp.AddTemperature(nov2014, 30);
-                            break;
-                        case 12:
-                            temp.AddTemperature(dez2014, 31);
-                            break;
+                    if(ano == 2013){
+                        
+                        switch(mes){
+                            case 1:
+                                temp.addTemperature(jan2013, 31);
+                                break;
+                            case 2:
+                                temp.addTemperature(fev2013, 28);   
+                                break;
+                            case 3:
+                                temp.addTemperature(mar2013, 31);   
+                                break;
+                            case 4:
+                                temp.addTemperature(abr2013, 30);   
+                                break;
+                            case 5:
+                                temp.addTemperature(mai2013, 31);
+                                break;
+                            case 6:
+                                temp.addTemperature(jun2013, 30);
+                                break;
+                            case 7:
+                                temp.addTemperature(jul2013, 31);
+                                break;
+                            case 8:
+                                temp.addTemperature(ago2013, 31);
+                                break;
+                            case 9:
+                                temp.addTemperature(set2013, 30);
+                                break;
+                            case 10:
+                                temp.addTemperature(out2013, 31);
+                                break;
+                            case 11:
+                                temp.addTemperature(nov2013, 30);
+                                break;
+                            case 12:
+                                temp.addTemperature(dez2019, 31);
+                                break;
+                        }
                     }
-                }
 
-                if(ano == 2013){
-                    
-                    switch(mes){
-                        case 1:
-                            temp.AddTemperature(jan2013, 31);
-                            break;
-                        case 2:
-                            temp.AddTemperature(fev2013, 28);   
-                            break;
-                        case 3:
-                            temp.AddTemperature(mar2013, 31);   
-                            break;
-                        case 4:
-                            temp.AddTemperature(abr2013, 30);   
-                            break;
-                        case 5:
-                            temp.AddTemperature(mai2013, 31);
-                            break;
-                        case 6:
-                            temp.AddTemperature(jun2013, 30);
-                            break;
-                        case 7:
-                            temp.AddTemperature(jul2013, 31);
-                            break;
-                        case 8:
-                            temp.AddTemperature(ago2013, 31);
-                            break;
-                        case 9:
-                            temp.AddTemperature(set2013, 30);
-                            break;
-                        case 10:
-                            temp.AddTemperature(out2013, 31);
-                            break;
-                        case 11:
-                            temp.AddTemperature(nov2013, 30);
-                            break;
-                        case 12:
-                            temp.AddTemperature(dez2019, 31);
-                            break;
+                    if(ano == 2012){
+                        
+                        switch(mes){
+                            case 1:
+                                temp.addTemperature(jan2012, 31);
+                                break;
+                            case 2:
+                                temp.addTemperature(fev2012, 29);   
+                                break;
+                            case 3:
+                                temp.addTemperature(mar2012, 31);   
+                                break;
+                            case 4:
+                                temp.addTemperature(abr2012, 30);   
+                                break;
+                            case 5:
+                                temp.addTemperature(mai2012, 31);
+                                break;
+                            case 6:
+                                temp.addTemperature(jun2012, 30);
+                                break;
+                            case 7:
+                                temp.addTemperature(jul2012, 31);
+                                break;
+                            case 8:
+                                temp.addTemperature(ago2012, 31);
+                                break;
+                            case 9:
+                                temp.addTemperature(set2012, 30);
+                                break;
+                            case 10:
+                                temp.addTemperature(out2012, 31);
+                                break;
+                            case 11:
+                                temp.addTemperature(nov2012, 30);
+                                break;
+                            case 12:
+                                temp.addTemperature(dez2012, 31);
+                                break;
+                        }
                     }
-                }
 
-                if(ano == 2012){
-                    
-                    switch(mes){
-                        case 1:
-                            temp.AddTemperature(jan2012, 31);
-                            break;
-                        case 2:
-                            temp.AddTemperature(fev2012, 29);   
-                            break;
-                        case 3:
-                            temp.AddTemperature(mar2012, 31);   
-                            break;
-                        case 4:
-                            temp.AddTemperature(abr2012, 30);   
-                            break;
-                        case 5:
-                            temp.AddTemperature(mai2012, 31);
-                            break;
-                        case 6:
-                            temp.AddTemperature(jun2012, 30);
-                            break;
-                        case 7:
-                            temp.AddTemperature(jul2012, 31);
-                            break;
-                        case 8:
-                            temp.AddTemperature(ago2012, 31);
-                            break;
-                        case 9:
-                            temp.AddTemperature(set2012, 30);
-                            break;
-                        case 10:
-                            temp.AddTemperature(out2012, 31);
-                            break;
-                        case 11:
-                            temp.AddTemperature(nov2012, 30);
-                            break;
-                        case 12:
-                            temp.AddTemperature(dez2012, 31);
-                            break;
+                    if(ano == 2011){   
+
+                        switch(mes){
+                            case 1:
+                                temp.addTemperature(jan2011, 31);
+                                break;
+                            case 2:
+                                temp.addTemperature(fev2011, 28);   
+                                break;
+                            case 3:
+                                temp.addTemperature(mar2011, 31);   
+                                break;
+                            case 4:
+                                temp.addTemperature(abr2011, 30);   
+                                break;
+                            case 5:
+                                temp.addTemperature(mai2011, 31);
+                                break;
+                            case 6:
+                                temp.addTemperature(jun2011, 30);
+                                break;
+                            case 7:
+                                temp.addTemperature(jul2011, 31);
+                                break;
+                            case 8:
+                                temp.addTemperature(ago2011, 31);
+                                break;
+                            case 9:
+                                temp.addTemperature(set2011, 30);
+                                break;
+                            case 10:
+                                temp.addTemperature(out2011, 31);
+                                break;
+                            case 11:
+                                temp.addTemperature(nov2011, 30);
+                                break;
+                            case 12:
+                                temp.addTemperature(dez2011, 31);
+                                break;
+                        }
                     }
+
+                }else {
+                    // Mes invalido
+                    System.out.println("Data Inválida! verifique mes e ano digitados.");
                 }
-
-                if(ano == 2011){   
-
-                    switch(mes){
-                        case 1:
-                            temp.AddTemperature(jan2011, 31);
-                            break;
-                        case 2:
-                            temp.AddTemperature(fev2011, 28);   
-                            break;
-                        case 3:
-                            temp.AddTemperature(mar2011, 31);   
-                            break;
-                        case 4:
-                            temp.AddTemperature(abr2011, 30);   
-                            break;
-                        case 5:
-                            temp.AddTemperature(mai2011, 31);
-                            break;
-                        case 6:
-                            temp.AddTemperature(jun2011, 30);
-                            break;
-                        case 7:
-                            temp.AddTemperature(jul2011, 31);
-                            break;
-                        case 8:
-                            temp.AddTemperature(ago2011, 31);
-                            break;
-                        case 9:
-                            temp.AddTemperature(set2011, 30);
-                            break;
-                        case 10:
-                            temp.AddTemperature(out2011, 31);
-                            break;
-                        case 11:
-                            temp.AddTemperature(nov2011, 30);
-                            break;
-                        case 12:
-                            temp.AddTemperature(dez2011, 31);
-                            break;
-                    }
-                }
-
-            }else {
-                // Mes invalido
-                System.out.println("Data Inválida! verifique se digitou um ano ente 2011 e 2020.");
-            }
-
-            System.out.println("Digite 0 para sair ou 1 para continuar inserindo dado de temperatura!");
-            exit = ler.nextInt();
         }
     }
 }
