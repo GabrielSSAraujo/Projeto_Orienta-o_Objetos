@@ -20,44 +20,57 @@ class MetodoManipulaTemp{
         return media/qteDias;
     }
 
-    public double[] calcMinTemp(double[] dadoMes, int qteDias){
+    public double[] calcMinMaxTemp(double[] dadoMes, int qteDias, int controlMaxMin){
     
-        double minTemp;
+        double minMaxTemp;
         int indice = 0;
 
-        minTemp = dadoMes[0];
+        minMaxTemp = dadoMes[0];
         
-
-        //Salvando menor valor
-        for( int i = 1; i < qteDias; i++){
-            if(minTemp > dadoMes[i]){
-                minTemp= dadoMes[i];
+        if(controlMaxMin==1){
+            //Salvando menor valor
+            for( int i = 1; i < qteDias; i++){
+                if(minMaxTemp > dadoMes[i]){
+                    minMaxTemp= dadoMes[i];
+                }
+            }
+        }else{
+            //Salvando maior valor
+            for( int i = 1; i < qteDias; i++){
+                if(minMaxTemp < dadoMes[i]){
+                    minMaxTemp= dadoMes[i];
+                }
             }
         }
-        //Encontrando quantas vezes o menor valor se repete
+
+        //Encontrando quantas vezes o maior/menor valor se repete
         for(int i = 0; i < qteDias; i++){
-            if(minTemp==dadoMes[i]){
+            if(minMaxTemp==dadoMes[i]){
                 indice += 1;
             }
         }
+        
         double[] ans = new double[indice+2];
         int j=0;
 
         for(int i=0;i<qteDias;i++){
-            if(minTemp==dadoMes[i]){
-                ans[j+2] = i;
+            if(minMaxTemp==dadoMes[i]){
+                ans[j+2] = i+1;
                 j++;
             }
         }
 
-        ans[0] = minTemp;
+        ans[0] = minMaxTemp;
         ans[1] = indice;
-        //criando um array do tamanho do menor valor
-        
-
-
         return ans;
     }
+
+    public void relatorioTemp(double[] dadoMes, int qteDias){
+        for(int i=0; i<qteDias;i++){
+            System.out.println("jnj");
+        }
+    }
+
 }
 
 
@@ -221,13 +234,20 @@ public class App {
                             case 1:
                                 if(menu == 1){System.out.println("Dado ja inserido previamente");}
                                 else if(menu == 2){System.out.println(temp.calcMediaTemp(jan2020, 31));}
-                                else if(menu == 3){
-                                    double[] ans = temp.calcMinTemp(jan2020, 31);
-
-                                    for(int i=2; i<ans[1]+2; i++){
-                                        System.out.println("A temperatura minima foi de: "+ans[0]+"C no dia: " + (int)ans[i]+"/"+mes+"/"+ano);
+                                else if(menu == 3 || menu==4){
+                                    double[] ans;
+                                    if(menu==3){
+                                         ans = temp.calcMinMaxTemp(jan2020, 31,1);
+                                    }else{
+                                         ans = temp.calcMinMaxTemp(jan2020, 31,2);
                                     }
-                                }
+                                    for(int i=2; i< ans[1]+2; i++){
+                                        System.out.println("A temperatura maxima foi de: "+ans[0]+"C no dia: " + (int)ans[i]+"/"+mes+"/"+ano);
+                                    }
+                                }else if(menu==5){
+
+
+                                }else{System.out.println("Opção errada nao consta no menu, digite um numero entre 1-5!");}
                                 break;
                             case 2:
                                 temp.addTemperature(fev2020, 29);   
