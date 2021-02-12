@@ -65,9 +65,26 @@ class MetodoManipulaTemp{
         return ans;
     }
 
-    public void relatorioTemp(double[] dadoMes, int qteDias){
-        for(int i=0; i<qteDias;i++){
-            System.out.println("jnj");
+    public void relatorioTemp(double[] dadoMes, int qteDias, int mes, int ano){
+
+        double[] ans;
+        int controlMaxMin;
+
+        //temperatura de cada dia
+        for(int i=1; i<=qteDias;i++){
+            System.out.println("Temperaruta no dia "+i+"/"+mes+"/"+ano+": "+dadoMes[i-1]);
+        }
+        //media da temp do mes
+        System.out.println("\n\nA media de temperatura de "+mes+"/"+ano+" foi de:" +calcMediaTemp(dadoMes, qteDias)+"\n\n");
+        // max e min temperatura
+        ans = calcMinMaxTemp(dadoMes, qteDias, 1);
+        for(int i=2; i< ans[1]+2; i++){
+            System.out.println("A temperatura minima foi de: "+ans[0]+"C no dia: " + (int)ans[i]+"/"+mes+"/"+ano);
+        }
+        System.out.println("\n\n");
+        ans = calcMinMaxTemp(dadoMes, qteDias, 2);
+        for(int i=2; i< ans[1]+2; i++){
+            System.out.println("A temperatura maxima foi de: "+ans[0]+"C no dia: " + (int)ans[i]+"/"+mes+"/"+ano);
         }
     }
 
@@ -245,12 +262,30 @@ public class App {
                                         System.out.println("A temperatura maxima foi de: "+ans[0]+"C no dia: " + (int)ans[i]+"/"+mes+"/"+ano);
                                     }
                                 }else if(menu==5){
-
+                                    temp.relatorioTemp(jan2020, 31, mes, ano);
 
                                 }else{System.out.println("Opção errada nao consta no menu, digite um numero entre 1-5!");}
                                 break;
                             case 2:
-                                temp.addTemperature(fev2020, 29);   
+
+                                if(menu == 1){
+                                    System.out.println("Insira os dados de temperatura"); 
+                                    temp.addTemperature(fev2020, 29);
+                                }else if(menu == 2){System.out.println(temp.calcMediaTemp(fev2020, 29));}
+                                else if(menu == 3 || menu==4){
+                                    double[] ans;
+                                    if(menu==3){
+                                         ans = temp.calcMinMaxTemp(fev2020, 29,1);
+                                    }else{
+                                         ans = temp.calcMinMaxTemp(fev2020, 29,2);
+                                    }
+                                    for(int i=2; i< ans[1]+2; i++){
+                                        System.out.println("A temperatura maxima foi de: "+ans[0]+"C no dia: " + (int)ans[i]+"/"+mes+"/"+ano);
+                                    }
+                                }else if(menu==5){
+                                    temp.relatorioTemp(fev2020, 29, mes, ano);
+
+                                }else{System.out.println("Opção errada nao consta no menu, digite um numero entre 1-5!");}
                                 break;
                             case 3:
                                 temp.addTemperature(mar2020, 31);   
