@@ -2,13 +2,13 @@ import java.util.Scanner; //leitura de dados
 
 class MetodoManipulaTemp{
     public void addTemperature(double[] data, int qteDias){ 
-        int dia;
+        double tempDia;
         Scanner ler = new Scanner(System.in);
 
         for(int i=1; i<=qteDias; i++){
             System.out.println("Insira a temperatura do dia "+i+":");
-            dia = ler.nextInt();
-            data[i-1] = dia;
+            tempDia = ler.nextDouble();
+            data[i-1] =tempDia;
         }
     }
 
@@ -88,6 +88,25 @@ class MetodoManipulaTemp{
         }
     }
 
+    //recebendo resultados e mostrando para o usuario
+    public void getData(double[] dadoMes, int qteDias, int menu, int mes, int ano){
+        if(menu == 1){addTemperature(dadoMes, qteDias);}
+        else if(menu == 2){System.out.println(calcMediaTemp(dadoMes, qteDias));}
+        else if(menu == 3 || menu==4){
+            double[] ans;
+            if(menu==3){
+                    ans = calcMinMaxTemp(dadoMes, qteDias,1);
+            }else{
+                    ans = calcMinMaxTemp(dadoMes, qteDias,2);
+            }
+            for(int i=2; i< ans[1]+2; i++){
+                System.out.println("A temperatura maxima foi de: "+ans[0]+"C no dia: " + (int)ans[i]+"/"+mes+"/"+ano);
+            }
+        }else if(menu==5){
+            relatorioTemp(dadoMes, qteDias, mes, ano);
+
+        }else{System.out.println("Opção errada nao consta no menu, digite um numero entre 1-5!");}
+    }
 }
 
 
@@ -249,73 +268,40 @@ public class App {
                         
                         switch(mes){
                             case 1:
-                                if(menu == 1){System.out.println("Dado ja inserido previamente");}
-                                else if(menu == 2){System.out.println(temp.calcMediaTemp(jan2020, 31));}
-                                else if(menu == 3 || menu==4){
-                                    double[] ans;
-                                    if(menu==3){
-                                         ans = temp.calcMinMaxTemp(jan2020, 31,1);
-                                    }else{
-                                         ans = temp.calcMinMaxTemp(jan2020, 31,2);
-                                    }
-                                    for(int i=2; i< ans[1]+2; i++){
-                                        System.out.println("A temperatura maxima foi de: "+ans[0]+"C no dia: " + (int)ans[i]+"/"+mes+"/"+ano);
-                                    }
-                                }else if(menu==5){
-                                    temp.relatorioTemp(jan2020, 31, mes, ano);
-
-                                }else{System.out.println("Opção errada nao consta no menu, digite um numero entre 1-5!");}
+                                temp.getData(jan2020,31,menu,mes,ano);
                                 break;
                             case 2:
-
-                                if(menu == 1){
-                                    System.out.println("Insira os dados de temperatura"); 
-                                    temp.addTemperature(fev2020, 29);
-                                }else if(menu == 2){System.out.println(temp.calcMediaTemp(fev2020, 29));}
-                                else if(menu == 3 || menu==4){
-                                    double[] ans;
-                                    if(menu==3){
-                                         ans = temp.calcMinMaxTemp(fev2020, 29,1);
-                                    }else{
-                                         ans = temp.calcMinMaxTemp(fev2020, 29,2);
-                                    }
-                                    for(int i=2; i< ans[1]+2; i++){
-                                        System.out.println("A temperatura maxima foi de: "+ans[0]+"C no dia: " + (int)ans[i]+"/"+mes+"/"+ano);
-                                    }
-                                }else if(menu==5){
-                                    temp.relatorioTemp(fev2020, 29, mes, ano);
-
-                                }else{System.out.println("Opção errada nao consta no menu, digite um numero entre 1-5!");}
+                                temp.getData(fev2020,29,menu,mes,ano);
                                 break;
                             case 3:
-                                temp.addTemperature(mar2020, 31);   
+                                temp.getData(mar2020,31,menu,mes,ano);
                                 break;
                             case 4:
-                                temp.addTemperature(abr2020, 30);   
+                                temp.getData(abr2020,30,menu,mes,ano);
                                 break;
                             case 5:
-                                temp.addTemperature(mai2020, 31);
+                                temp.getData(mai2020,31,menu,mes,ano);
                                 break;
                             case 6:
-                                temp.addTemperature(jun2020, 30);
+                                temp.getData(jun2020,30,menu,mes,ano);
                                 break;
                             case 7:
-                                temp.addTemperature(jul2020, 31);
+                                temp.getData(jul2020,31,menu,mes,ano);
                                 break;
                             case 8:
-                                temp.addTemperature(ago2020, 31);
+                                temp.getData(ago2020,31,menu,mes,ano);
                                 break;
                             case 9:
-                                temp.addTemperature(set2020, 30);
+                                temp.getData(set2020,30,menu,mes,ano);
                                 break;
                             case 10:
-                                temp.addTemperature(out2020, 31);
+                                temp.getData(out2020,31,menu,mes,ano);
                                 break;
                             case 11:
-                                temp.addTemperature(nov2020, 30);
+                                temp.getData(nov2020,30,menu,mes,ano);
                                 break;
                             case 12:
-                                temp.addTemperature(dez2020, 31);
+                                temp.getData(dez2020,31,menu,mes,ano);
                                 break;
                         }
                     }
@@ -324,40 +310,40 @@ public class App {
                         
                         switch(mes){
                             case 1:
-                                temp.addTemperature(jan2019, 31);
+                                temp.getData(jan2019,31,menu,mes,ano);
                                 break;
                             case 2:
-                                temp.addTemperature(fev2019, 28);   
+                                temp.getData(fev2019,28,menu,mes,ano);
                                 break;
                             case 3:
-                                temp.addTemperature(mar2019, 31);   
+                                temp.getData(mar2019,31,menu,mes,ano);
                                 break;
                             case 4:
-                                temp.addTemperature(abr2019, 30);   
+                                temp.getData(abr2019,30,menu,mes,ano);
                                 break;
                             case 5:
-                                temp.addTemperature(mai2019, 31);
+                                temp.getData(mai2019,31,menu,mes,ano);
                                 break;
                             case 6:
-                                temp.addTemperature(jun2019, 30);
+                                temp.getData(jun2019,30,menu,mes,ano);
                                 break;
                             case 7:
-                                temp.addTemperature(jul2019, 31);
+                                temp.getData(jul2019,31,menu,mes,ano);
                                 break;
                             case 8:
-                                temp.addTemperature(ago2019, 31);
+                                temp.getData(ago2019,31,menu,mes,ano);
                                 break;
                             case 9:
-                                temp.addTemperature(set2019, 30);
+                                temp.getData(set2019,30,menu,mes,ano);
                                 break;
                             case 10:
-                                temp.addTemperature(out2019, 31);
+                                temp.getData(out2019,31,menu,mes,ano);
                                 break;
                             case 11:
-                                temp.addTemperature(nov2019, 30);
+                                temp.getData(nov2019,30,menu,mes,ano);
                                 break;
                             case 12:
-                                temp.addTemperature(dez2019, 31);
+                                temp.getData(dez2019,31,menu,mes,ano);
                                 break;
                         }
                     }
@@ -366,40 +352,40 @@ public class App {
                         
                         switch(mes){
                             case 1:
-                                temp.addTemperature(jan2018, 31);
+                                temp.getData(jan2018,31,menu,mes,ano);
                                 break;
                             case 2:
-                                temp.addTemperature(fev2018, 28);   
+                                temp.getData(fev2018,28,menu,mes,ano);
                                 break;
                             case 3:
-                                temp.addTemperature(mar2018, 31);   
+                                temp.getData(mar2018,31,menu,mes,ano);
                                 break;
                             case 4:
-                                temp.addTemperature(abr2018, 30);   
+                                temp.getData(abr2018,30,menu,mes,ano);
                                 break;
                             case 5:
-                                temp.addTemperature(mai2018, 31);
+                                temp.getData(mai2018,31,menu,mes,ano);
                                 break;
                             case 6:
-                                temp.addTemperature(jun2018, 30);
+                                temp.getData(jun2018,30,menu,mes,ano);
                                 break;
                             case 7:
-                                temp.addTemperature(jul2018, 31);
+                                temp.getData(jul2018,31,menu,mes,ano);
                                 break;
                             case 8:
-                                temp.addTemperature(ago2018, 31);
+                                temp.getData(ago2018,31,menu,mes,ano);
                                 break;
                             case 9:
-                                temp.addTemperature(set2018, 30);
+                                temp.getData(set2018,30,menu,mes,ano);
                                 break;
                             case 10:
-                                temp.addTemperature(out2018, 31);
+                                temp.getData(out2018,31,menu,mes,ano);
                                 break;
                             case 11:
-                                temp.addTemperature(nov2018, 30);
+                                temp.getData(nov2018,30,menu,mes,ano);
                                 break;
                             case 12:
-                                temp.addTemperature(dez2018, 31);
+                                temp.getData(dez2018,31,menu,mes,ano);
                                 break;
                         }
                     }
@@ -408,40 +394,40 @@ public class App {
                         
                         switch(mes){
                             case 1:
-                                temp.addTemperature(jan2017, 31);
+                                temp.getData(jan2017,31,menu,mes,ano);
                                 break;
                             case 2:
-                                temp.addTemperature(fev2017, 28);   
+                                temp.getData(fev2017,28,menu,mes,ano);
                                 break;
                             case 3:
-                                temp.addTemperature(mar2017, 31);   
+                                temp.getData(mar2017,31,menu,mes,ano);
                                 break;
                             case 4:
-                                temp.addTemperature(abr2017, 30);   
+                                temp.getData(abr2017,30,menu,mes,ano);
                                 break;
                             case 5:
-                                temp.addTemperature(mai2017, 31);
+                                temp.getData(mai2017,31,menu,mes,ano);
                                 break;
                             case 6:
-                                temp.addTemperature(jun2017, 30);
+                                temp.getData(jun2017,30,menu,mes,ano);
                                 break;
                             case 7:
-                                temp.addTemperature(jul2017, 31);
+                                temp.getData(jul2017,31,menu,mes,ano);
                                 break;
                             case 8:
-                                temp.addTemperature(ago2017, 31);
+                                temp.getData(ago2017,31,menu,mes,ano);
                                 break;
                             case 9:
-                                temp.addTemperature(set2017, 30);
+                                temp.getData(set2017,30,menu,mes,ano);
                                 break;
                             case 10:
-                                temp.addTemperature(out2017, 31);
+                                temp.getData(out2017,31,menu,mes,ano);
                                 break;
                             case 11:
-                                temp.addTemperature(nov2017, 30);
+                                temp.getData(nov2017,30,menu,mes,ano);
                                 break;
                             case 12:
-                                temp.addTemperature(dez2017, 31);
+                                temp.getData(dez2017,31,menu,mes,ano);
                                 break;
                         }
                     }
@@ -450,40 +436,40 @@ public class App {
                         
                         switch(mes){
                             case 1:
-                                temp.addTemperature(jan2016, 31);
+                                temp.getData(jan2016,31,menu,mes,ano);
                                 break;
                             case 2:
-                                temp.addTemperature(fev2016, 29);   
+                                temp.getData(fev2016,29,menu,mes,ano);
                                 break;
                             case 3:
-                                temp.addTemperature(mar2016, 31);   
+                                temp.getData(mar2016,31,menu,mes,ano);
                                 break;
                             case 4:
-                                temp.addTemperature(abr2016, 30);   
+                                temp.getData(abr2016,30,menu,mes,ano);
                                 break;
                             case 5:
-                                temp.addTemperature(mai2016, 31);
+                                temp.getData(mai2016,31,menu,mes,ano);
                                 break;
                             case 6:
-                                temp.addTemperature(jun2016, 30);
+                                temp.getData(jun2016,30,menu,mes,ano);
                                 break;
                             case 7:
-                                temp.addTemperature(jul2016, 31);
+                                temp.getData(jul2016,31,menu,mes,ano);
                                 break;
                             case 8:
-                                temp.addTemperature(ago2016, 31);
+                                temp.getData(ago2016,31,menu,mes,ano);
                                 break;
                             case 9:
-                                temp.addTemperature(set2016, 30);
+                                temp.getData(set2016,30,menu,mes,ano);
                                 break;
                             case 10:
-                                temp.addTemperature(out2016, 31);
+                                temp.getData(out2016,31,menu,mes,ano);
                                 break;
                             case 11:
-                                temp.addTemperature(nov2016, 30);
+                                temp.getData(nov2016,30,menu,mes,ano);
                                 break;
                             case 12:
-                                temp.addTemperature(dez2016, 31);
+                                temp.getData(dez2016,31,menu,mes,ano);
                                 break;
                         }
                     }
@@ -492,40 +478,40 @@ public class App {
                         
                         switch(mes){
                             case 1:
-                                temp.addTemperature(jan2015, 31);
+                                temp.getData(jan2015,31,menu,mes,ano);
                                 break;
                             case 2:
-                                temp.addTemperature(fev2015, 28);   
+                                temp.getData(fev2015,28,menu,mes,ano);
                                 break;
                             case 3:
-                                temp.addTemperature(mar2015, 31);   
+                                temp.getData(mar2015,31,menu,mes,ano);
                                 break;
                             case 4:
-                                temp.addTemperature(abr2015, 30);   
+                                temp.getData(abr2015,30,menu,mes,ano);
                                 break;
                             case 5:
-                                temp.addTemperature(mai2015, 31);
+                                temp.getData(mai2015,31,menu,mes,ano);
                                 break;
                             case 6:
-                                temp.addTemperature(jun2015, 30);
+                                temp.getData(jun2015,30,menu,mes,ano);
                                 break;
                             case 7:
-                                temp.addTemperature(jul2015, 31);
+                                temp.getData(jul2015,31,menu,mes,ano);
                                 break;
                             case 8:
-                                temp.addTemperature(ago2015, 31);
+                                temp.getData(ago2015,31,menu,mes,ano);
                                 break;
                             case 9:
-                                temp.addTemperature(set2015, 30);
+                                temp.getData(set2015,30,menu,mes,ano);
                                 break;
                             case 10:
-                                temp.addTemperature(out2015, 31);
+                                temp.getData(out2015,31,menu,mes,ano);
                                 break;
                             case 11:
-                                temp.addTemperature(nov2015, 30);
+                                temp.getData(nov2015,30,menu,mes,ano);
                                 break;
                             case 12:
-                                temp.addTemperature(dez2015, 31);
+                                temp.getData(dez2015,31,menu,mes,ano);
                                 break;
                         }
                     }
@@ -534,40 +520,40 @@ public class App {
                         
                         switch(mes){
                             case 1:
-                                temp.addTemperature(jan2014, 31);
+                                temp.getData(jan2014,31,menu,mes,ano);
                                 break;
                             case 2:
-                                temp.addTemperature(fev2014, 28);   
+                                temp.getData(fev2014,28,menu,mes,ano);
                                 break;
                             case 3:
-                                temp.addTemperature(mar2014, 31);   
+                                temp.getData(mar2014,31,menu,mes,ano);
                                 break;
                             case 4:
-                                temp.addTemperature(abr2014, 30);   
+                                temp.getData(abr2014,30,menu,mes,ano);
                                 break;
                             case 5:
-                                temp.addTemperature(mai2014, 31);
+                                temp.getData(mai2014,31,menu,mes,ano);
                                 break;
                             case 6:
-                                temp.addTemperature(jun2014, 30);
+                                temp.getData(jun2014,30,menu,mes,ano);
                                 break;
                             case 7:
-                                temp.addTemperature(jul2014, 31);
+                                temp.getData(jul2014,31,menu,mes,ano);
                                 break;
                             case 8:
-                                temp.addTemperature(ago2014, 31);
+                                temp.getData(ago2014,31,menu,mes,ano);
                                 break;
                             case 9:
-                                temp.addTemperature(set2014, 30);
+                                temp.getData(set2014,30,menu,mes,ano);
                                 break;
                             case 10:
-                                temp.addTemperature(out2014, 31);
+                                temp.getData(out2014,31,menu,mes,ano);
                                 break;
                             case 11:
-                                temp.addTemperature(nov2014, 30);
+                                temp.getData(nov2014,30,menu,mes,ano);
                                 break;
                             case 12:
-                                temp.addTemperature(dez2014, 31);
+                                temp.getData(dez2014,31,menu,mes,ano);
                                 break;
                         }
                     }
@@ -576,40 +562,40 @@ public class App {
                         
                         switch(mes){
                             case 1:
-                                temp.addTemperature(jan2013, 31);
+                                temp.getData(jan2013,31,menu,mes,ano);
                                 break;
                             case 2:
-                                temp.addTemperature(fev2013, 28);   
+                                temp.getData(fev2013,28,menu,mes,ano);
                                 break;
                             case 3:
-                                temp.addTemperature(mar2013, 31);   
+                                temp.getData(mar2013,31,menu,mes,ano);
                                 break;
                             case 4:
-                                temp.addTemperature(abr2013, 30);   
+                                temp.getData(abr2013,30,menu,mes,ano);
                                 break;
                             case 5:
-                                temp.addTemperature(mai2013, 31);
+                                temp.getData(mai2013,31,menu,mes,ano);
                                 break;
                             case 6:
-                                temp.addTemperature(jun2013, 30);
+                                temp.getData(jun2013,30,menu,mes,ano);
                                 break;
                             case 7:
-                                temp.addTemperature(jul2013, 31);
+                                temp.getData(jul2013,31,menu,mes,ano);
                                 break;
                             case 8:
-                                temp.addTemperature(ago2013, 31);
+                                temp.getData(ago2013,31,menu,mes,ano);
                                 break;
                             case 9:
-                                temp.addTemperature(set2013, 30);
+                                temp.getData(set2013,30,menu,mes,ano);
                                 break;
                             case 10:
-                                temp.addTemperature(out2013, 31);
+                                temp.getData(out2013,31,menu,mes,ano);
                                 break;
                             case 11:
-                                temp.addTemperature(nov2013, 30);
+                                temp.getData(nov2013,30,menu,mes,ano);
                                 break;
                             case 12:
-                                temp.addTemperature(dez2019, 31);
+                                temp.getData(dez2013,31,menu,mes,ano);
                                 break;
                         }
                     }
@@ -618,40 +604,40 @@ public class App {
                         
                         switch(mes){
                             case 1:
-                                temp.addTemperature(jan2012, 31);
+                                temp.getData(jan2012,31,menu,mes,ano);
                                 break;
                             case 2:
-                                temp.addTemperature(fev2012, 29);   
+                                temp.getData(fev2012,29,menu,mes,ano);
                                 break;
                             case 3:
-                                temp.addTemperature(mar2012, 31);   
+                                temp.getData(mar2012,31,menu,mes,ano);
                                 break;
                             case 4:
-                                temp.addTemperature(abr2012, 30);   
+                                temp.getData(abr2012,30,menu,mes,ano);
                                 break;
                             case 5:
-                                temp.addTemperature(mai2012, 31);
+                                temp.getData(mai2012,31,menu,mes,ano);
                                 break;
                             case 6:
-                                temp.addTemperature(jun2012, 30);
+                                temp.getData(jun2012,30,menu,mes,ano);
                                 break;
                             case 7:
-                                temp.addTemperature(jul2012, 31);
+                                temp.getData(jul2012,31,menu,mes,ano);
                                 break;
                             case 8:
-                                temp.addTemperature(ago2012, 31);
+                                temp.getData(ago2012,31,menu,mes,ano);
                                 break;
                             case 9:
-                                temp.addTemperature(set2012, 30);
+                                temp.getData(set2012,30,menu,mes,ano);
                                 break;
                             case 10:
-                                temp.addTemperature(out2012, 31);
+                                temp.getData(out2012,31,menu,mes,ano);
                                 break;
                             case 11:
-                                temp.addTemperature(nov2012, 30);
+                                temp.getData(nov2012,30,menu,mes,ano);
                                 break;
                             case 12:
-                                temp.addTemperature(dez2012, 31);
+                                temp.getData(dez2012,31,menu,mes,ano);
                                 break;
                         }
                     }
@@ -660,40 +646,40 @@ public class App {
 
                         switch(mes){
                             case 1:
-                                temp.addTemperature(jan2011, 31);
+                                temp.getData(jan2011,31,menu,mes,ano);
                                 break;
                             case 2:
-                                temp.addTemperature(fev2011, 28);   
+                                temp.getData(fev2011,28,menu,mes,ano);
                                 break;
                             case 3:
-                                temp.addTemperature(mar2011, 31);   
+                                temp.getData(mar2011,31,menu,mes,ano);
                                 break;
                             case 4:
-                                temp.addTemperature(abr2011, 30);   
+                                temp.getData(abr2011,30,menu,mes,ano);
                                 break;
                             case 5:
-                                temp.addTemperature(mai2011, 31);
+                                temp.getData(mai2011,31,menu,mes,ano);
                                 break;
                             case 6:
-                                temp.addTemperature(jun2011, 30);
+                                temp.getData(jun2011,30,menu,mes,ano);
                                 break;
                             case 7:
-                                temp.addTemperature(jul2011, 31);
+                                temp.getData(jul2011,31,menu,mes,ano);
                                 break;
                             case 8:
-                                temp.addTemperature(ago2011, 31);
+                                temp.getData(ago2011,31,menu,mes,ano);
                                 break;
                             case 9:
-                                temp.addTemperature(set2011, 30);
+                                temp.getData(set2011,30,menu,mes,ano);
                                 break;
                             case 10:
-                                temp.addTemperature(out2011, 31);
+                                temp.getData(out2011,31,menu,mes,ano);
                                 break;
                             case 11:
-                                temp.addTemperature(nov2011, 30);
+                                temp.getData(nov2011,30,menu,mes,ano);
                                 break;
                             case 12:
-                                temp.addTemperature(dez2011, 31);
+                                temp.getData(dez2011,31,menu,mes,ano);
                                 break;
                         }
                     }
