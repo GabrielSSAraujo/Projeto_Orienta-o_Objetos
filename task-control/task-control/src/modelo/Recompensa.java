@@ -5,12 +5,12 @@ public class Recompensa {
     private String[] nomeRecompensas = new String[5];
 
     public Recompensa(){
-        setTempoRecompensa(10);
-        
-    }
-
-    public void cadastarRecompensa(String rec, int i){
-        setRecompensas(rec, i);
+        setTempoRecompensa(20);
+        setRecompensas("ASSISTIR SERIE/FILME", 0);
+        setRecompensas("REDES SOCIAIS", 1);
+        setRecompensas("LER LIVRO", 2);
+        setRecompensas("JOGAR", 3);
+        setRecompensas("BARZINHO <3", 4);
     }
 
     public int getTempoRecompensa(){
@@ -33,7 +33,7 @@ public class Recompensa {
     }
 
     public String consultarRecompensasCadastradas() {
-		String saida = "***** Lista de recompensas cadastradas*****\n" ;
+		String saida = "\n***** Lista de recompensas cadastradas*****\n" ;
 		for(int i = 0; i <5; i++) {
             saida = saida + "\n" +getTempoRecompensa()+" min-"+ getRecompensas(i);
 		}

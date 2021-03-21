@@ -1,7 +1,6 @@
 package modelo;
-import java.util.Date;
 
-import controle.Cadastro;
+import java.util.Date;
 
 public class Tarefas{
 
@@ -9,19 +8,19 @@ public class Tarefas{
     private Date dataTermino;
     private String nome;
     private int tempoEstimado;
-    private long tempReal;
+    private int tempReal = 0;
     private String descricao;
     private String prioridade;
     private Projeto projeto;
 
-    public Tarefas(String nt, Date di, Date df, int te, String d, String pr, Projeto p){
+    public Tarefas(String nt, Date di, Date df, int te, String d, String pr,Projeto p){
         dataInicio= di;
         dataTermino = df;
         tempoEstimado=te;
         descricao = d;
         prioridade = pr;
-        projeto = p;
         nome= nt;
+        projeto= p;
 
         //dados a serem cadastrados em cada tarefa
         setNome(getNome());
@@ -68,49 +67,42 @@ public class Tarefas{
     public void setDataInicio(Date dataInicio){
         this.dataInicio=dataInicio;
     }
-
     public Date getDataTermino(){
         return dataTermino;
     }
     public void setDataTermino(Date dataTermino){
         this.dataTermino=dataTermino;
     }
-
     public String getNome(){
         return nome;
     }
     public void setNome(String nome){
         this.nome=nome;
     }
-
     public int getTempoEstimado(){
         return tempoEstimado;
     }
     public void setTempoEstimado(int tempoEstimado){
         this.tempoEstimado =tempoEstimado;
     }
-
-    public long getTempReal(){
+    public int getTempReal(){
         return tempReal;
     }
-    public void setTempReal(long tempReal){
+    public void setTempReal(int tempReal){
         this.tempReal = tempReal;
     }
-
     public String getDescricao(){
         return descricao;
     }
     public void setDescricao(String descricao){
         this.descricao = descricao;
     }
-
     public String getPrioridade(){
         return prioridade;
     }
     public void setPrioridade(String prioridade){
         this.prioridade = prioridade;
     }
-
     public Projeto getProjeto(){
         return projeto;
     }
