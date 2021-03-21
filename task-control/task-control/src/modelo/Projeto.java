@@ -16,6 +16,8 @@ public class Projeto{
         nome = n;
     }
 
+    
+
 
     public Date getDataInicio(){
         return dataInicio;
@@ -60,7 +62,7 @@ public class Projeto{
     }
 
     public String consultarTarefasCadastradas() {
-		String saida = "***** Lista as tarefas cadastradas no projeto"+getNome()+"*****\n" ;
+		String saida = "***** Lista as tarefas cadastradas no projeto "+getNome()+"*****\n" ;
         
 		for(int i = 0; i < getNumTarefas(); i++) {
             if(getTarefas(i)!=null){saida = saida + "\n" +i+"-"+ getTarefas(i);}

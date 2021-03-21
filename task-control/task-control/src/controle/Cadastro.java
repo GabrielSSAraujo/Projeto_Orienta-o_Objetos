@@ -12,17 +12,17 @@ public class Cadastro{
         //chave para verificar se há posição nula
         int qtd=0;
         //Fazer condição Se projeto ja existir printar que já existe.***********************
-        if(getNumProjetos()==0){setProjetos(pro, 0);}
+        if(getNumProjetos()==0){setArrProjetos(pro, 0);}
         else{
             for(int i=0; i<getNumProjetos(); i++){
-                if(arrayProjeto[i]==null){
-                    setProjetos(pro, i);
+                if(getArrProjetos(i)==null){
+                    setArrProjetos(pro, i);
                     //se houver posição nula a chave é 1
                     qtd=1;
                     break;
                 }
                 else{
-                    setProjetos(pro, getNumProjetos());
+                    setArrProjetos(pro, getNumProjetos());
                 }
             }
         }
@@ -30,15 +30,44 @@ public class Cadastro{
         if(qtd==0){setNumProjetos(getNumProjetos()+1);}
         
     }
-    public void excluirProjeto(Projeto pro){
+    public void editarProjeto(String pro){
         for(int j=0; j<getNumProjetos();j++){
-            if(arrayProjeto[j] != null && pro.getNome().equals(arrayProjeto[j].getNome())){
-                System.out.println("\n apagando "+pro.getNome()+"...\n");
-                arrayProjeto[j]=null;
+            if(getArrProjetos(j) != null && pro.equals(getArrProjetos(j).getNome())){
+                getArrProjetos(j).setNome(pro);
+            }
+        }
+    }
+    public void excluirProjeto(String pro){
+        int key=0;
+        for(int j=0; j<getNumProjetos();j++){
+            if(getArrProjetos(j) != null && pro.equals(getArrProjetos(j).getNome())){
+                System.out.println("\n apagando "+pro+"...\n");
+                setArrProjetos(null, j);
+                key++;
+            }
+        }
+        if(key<1){System.out.println("Projeto "+pro+"nao encontrado\n");}
+    }
+
+    public void buscarProjeto(String name, Tarefas taref, int key){
+        for(int j=0; j<getNumProjetos();j++){
+            if(getArrProjetos(j) != null && name.equals(getArrProjetos(j).getNome())){
+                if(key==0){
+                    taref.setProjeto(getArrProjetos(j));
+                    taref.cadastrar();
+                }
+                else if(key==1){
+                    System.out.println(getArrProjetos(j).consultarTarefasCadastradas().toString());
+                }
+                else{
+                    
+                    
+                }
 
             }
         }
     }
+
 
     //cadastro de tarefas dentro de um projeto
    /* public void cadastroTarefas(Projeto proj,Tarefas taref){
@@ -62,18 +91,18 @@ public class Cadastro{
         this.arrayProjeto = p;
     }
 
-    public Projeto getProjetos(int i){
+    public Projeto getArrProjetos(int i){
         return arrayProjeto[i];
     }
-    public void setProjetos(Projeto projetos, int i){
+    public void setArrProjetos(Projeto projetos, int i){
         this.arrayProjeto[i] = projetos;
     }
 
     public String consultarProjetosCadastrados() {
 		String saida = "***** Lista de projetos cadastrados ***** \n" ;
 		for(int i = 0; i < getNumProjetos(); i++) {
-			if(getProjetos(i)!=null){
-                saida = saida + "\n" +i+"-"+ getProjetos(i);
+			if(getArrProjetos(i)!=null){
+                saida = saida +i+"-"+ getArrProjetos(i)+"\n";
             }
 		}
 		return saida;
@@ -81,11 +110,11 @@ public class Cadastro{
     public String consultarTarefasProjeto(Projeto pro){
         String saida = "";
         for (int i=0; i<getNumProjetos(); i++){
-            if(arrayProjeto[i] != null && pro.getNome().equals(arrayProjeto[i].getNome())){
+            if(getArrProjetos(i) != null && pro.getNome().equals(getArrProjetos(i).getNome())){
                 saida  = saida + pro.consultarTarefasCadastradas();
             }
         }  
-        if(saida == "") {saida = "Projeto nao cadastrado";}
+        if(saida == "") {saida = "Projeto nao cadastrado\n";}
         
         return saida;
     }

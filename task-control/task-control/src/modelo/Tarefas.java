@@ -1,6 +1,8 @@
 package modelo;
 import java.util.Date;
 
+import controle.Cadastro;
+
 public class Tarefas{
 
     private Date dataInicio;
@@ -118,7 +120,7 @@ public class Tarefas{
 
     @Override
     public String toString(){
-        return ""+getProjeto()+", Nome da tarefa: "+getNome()+", Descrição: "+ getDescricao()+", O tempo estimado: "+getTempoEstimado()+
+        return " Nome da tarefa: "+getNome()+", Descrição: "+ getDescricao()+", O tempo estimado: "+getTempoEstimado()+
         "min, Prioridade:" +getPrioridade()+ " Agora o tempo real gasto: "+getTempReal();
     }
 
